@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bătălia cu Profesorul Virtual</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #020617, #020617 45%, #020617 100%);
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+      padding: 20px 20px 24px;
+      backdrop-filter: blur(10px);
+      animation: cardIn 0.6s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes cardIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .title-block {
+      max-width: 60%;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+
+    .stats-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(31, 41, 55, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 0.78rem;
+    }
+
+    .badge-label {
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.7rem;
+    }
+
+    .badge-value {
+      font-weight: 600;
+    }
+
+    .badge.player {
+      border-color: rgba(34, 197, 94, 0.8);
+      background: radial-gradient(circle at top left, rgba(22, 163, 74, 0.35), rgba(17, 24, 39, 0.95));
+    }
+
+    .badge.ai {
+      border-color: rgba(59, 130, 246, 0.8);
+      background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.35), rgba(17, 24, 39, 0.95));
+    }
+
+    .badge.timer {
+      border-color: rgba(248, 113, 113, 0.9);
+      background: radial-gradient(circle at top left, rgba(248, 113, 113, 0.25), rgba(17, 24, 39, 0.95));
+    }
+
+    .badge.pulse {
+      animation: pulse 0.4s ease-out;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+      100% { transform: scale(1); }
+    }
+
+    .content {
+      border-radius: 18px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 1));
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        grid-template-columns: 1fr;
+      }
+      .title-block {
+        max-width: 100%;
+      }
+    }
+
+    .question-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .question-box {
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .question-text {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .timer-bar-wrapper {
+      margin-top: 10px;
+      height: 8px;
+      background: rgba(31, 41, 55, 0.9);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .timer-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(to right, #22c55e, #f97316, #ef4444);
+      transform-origin: left;
+      transform: scaleX(1);
+      transition: transform 0.2s linear;
+    }
+
+    .answers {
+      margin-top: 10px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .answer-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .answer-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      border-color: rgba(148, 163, 184, 0.9);
+    }
+
+    .answer-btn:active {
+      transform: translateY(0) scale(0.99);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.35);
+    }
+
+    .answer-key {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      flex-shrink: 0;
+    }
+
+    .answer-text {
+      flex: 1;
+    }
+
+    .answer-btn.correct {
+      background: radial-gradient(circle at top left, rgba(22, 163, 74, 0.35), rgba(15, 23, 42, 0.98));
+      border-color: rgba(34, 197, 94, 0.9);
+    }
+
+    .answer-btn.wrong {
+      background: radial-gradient(circle at top left, rgba(239, 68, 68, 0.35), rgba(15, 23, 42, 0.98));
+      border-color: rgba(248, 113, 113, 0.95);
+    }
+
+    .answer-btn.disabled {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .answer-key.correct {
+      border-color: rgba(34, 197, 94, 0.9);
+      color: #bbf7d0;
+    }
+
+    .answer-key.wrong {
+      border-color: rgba(239, 68, 68, 0.9);
+      color: #fecaca;
+    }
+
+    .controls {
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .btn {
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: transform 0.08s ease, box-shadow 0.12s ease, background 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      color: #022c22;
+      box-shadow: 0 8px 18px rgba(34, 197, 94, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 4px 10px rgba(34, 197, 94, 0.25);
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .btn[disabled] {
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    /* Profesorul virtual / chat lateral */
+    .side-panel {
+      border-radius: 16px;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .ai-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ai-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #60a5fa, #2563eb, #1d4ed8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1rem;
+      color: white;
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.6);
+    }
+
+    .ai-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .ai-role {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+
+    .ai-bubble {
+      margin-top: 4px;
+      border-radius: 12px;
+      padding: 8px 10px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.82rem;
+      line-height: 1.3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-bubble::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.22), transparent 55%);
+      opacity: 0;
+      animation: shine 0.7s ease-out forwards;
+    }
+
+    @keyframes shine {
+      0% { opacity: 0; }
+      30% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .ai-meta {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    .log {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+      max-height: 130px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .log-entry {
+      margin-bottom: 4px;
+    }
+
+    .log-entry strong {
+      color: #e5e7eb;
+    }
+
+    .footer-note {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .footer-note span {
+      max-width: 100%;
+    }
+
+    .highlight {
+      color: #22c55e;
+    }
+
+    .danger {
+      color: #f97316;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* === PAGINA DE START / OVERLAY === */
+    .start-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      padding: 16px;
+    }
+
+    .start-card {
+      max-width: 520px;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      padding: 18px 18px 16px;
+      animation: startIn 0.4s ease-out;
+    }
+
+    @keyframes startIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .start-title {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+
+    .start-subtitle {
+      font-size: 0.9rem;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    .start-section-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .start-list {
+      font-size: 0.85rem;
+      color: #d1d5db;
+      padding-left: 16px;
+    }
+
+    .start-list li {
+      margin-bottom: 4px;
+    }
+
+    .start-name-row {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .start-name-row label {
+      font-size: 0.85rem;
+      color: #e5e7eb;
+    }
+
+    .start-name-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      font-size: 0.85rem;
+    }
+
+    .start-name-row input::placeholder {
+      color: #6b7280;
+    }
+
+    .start-buttons {
+      margin-top: 12px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .start-note {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #9ca3af;
+    }
+
+    @media (max-width: 600px) {
+      .start-card {
+        padding: 14px 12px 12px;
+      }
+      .start-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- OVERLAY DE START (PAGINA DE INSTRUCȚIUNI) -->
+    <div class="start-overlay" id="startOverlay">
+      <div class="start-card">
+        <div class="start-title">Bine ai venit în „Bătălia cu Profesorul Virtual”! 👋</div>
+        <div class="start-subtitle">
+          Vei răspunde la întrebări despre lumea digitală și vei concura cu Profesorul virtual (AI).
+          Cronometrul începe doar după ce intri în joc și apeși <strong>Start joc</strong>.
+        </div>
+
+        <div class="start-section-title">Cum se joacă:</div>
+        <ul class="start-list">
+          <li>📱 Alege varianta corectă înainte ca timpul să expire.</li>
+          <li>⏱️ Fiecare întrebare are un timp limitat. Cu cât răspunzi mai repede, cu atât primești mai multe puncte.</li>
+          <li>🤖 Profesorul virtual își alege și el un răspuns – la final veți compara scorurile.</li>
+          <li>🏆 La final, vedeți cine câștigă: nativul digital sau AI.</li>
+        </ul>
+
+        <div class="start-section-title">Înainte să începem:</div>
+        <div class="start-name-row">
+          <label for="startNameInput">Numele tău (opțional):</label>
+          <input
+            type="text"
+            id="startNameInput"
+            placeholder="Scrie-ți prenumele (ex: Andrei)"
+          />
+        </div>
+
+        <div class="start-note">
+          Numele va apărea lângă scorul tău, dar nu pornește încă jocul și nici cronometrul.
+          Jocul începe abia când apeși <strong>Start joc</strong în ecranul principal.
+        </div>
+
+        <div class="start-buttons">
+          <button class="btn btn-ghost" id="startSkipNameBtn">Intră fără nume</button>
+          <button class="btn btn-primary" id="enterGameBtn">Intră în joc</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEADER JOC -->
+    <div class="header">
+      <div class="title-block">
+        <h1>Bătălia cu Profesorul Virtual</h1>
+        <p class="subtitle">
+          Elevi nativi digitali vs. Profesorul virtual AI – răspunde la întrebări despre lumea digitală
+          înainte să expire timpul ⏱️.
+        </p>
+      </div>
+      <div class="stats-bar">
+        <div class="badge player" id="playerBadge">
+          <div>
+            <div class="badge-label">Elev</div>
+            <div class="badge-value" id="playerNameLabel">Tu</div>
+          </div>
+          <div class="badge-value" id="playerScore">0</div>
+        </div>
+        <div class="badge ai" id="aiBadge">
+          <div>
+            <div class="badge-label">Profesor virtual</div>
+            <div class="badge-value">AI</div>
+          </div>
+          <div class="badge-value" id="aiScore">0</div>
+        </div>
+        <div class="badge timer" id="timerBadge">
+          <div>
+            <div class="badge-label">Timp</div>
+            <div class="badge-value"><span id="timeLeft">0</span>s</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONȚINUT PRINCIPAL -->
+    <div class="content">
+      <div class="question-panel">
+        <div class="question-meta">
+          <span>Întrebarea <span id="questionIndex">1</span>/<span id="questionTotal">1</span></span>
+          <span id="questionCategory">—</span>
+        </div>
+
+        <div class="question-box">
+          <div class="question-text" id="questionText">
+            Apasă „Start joc” pentru a începe runda împotriva Profesorului virtual.
+          </div>
+          <div class="timer-bar-wrapper">
+            <div class="timer-bar" id="timerBar"></div>
+          </div>
+          <div class="answers" id="answersContainer">
+            <!-- Butoane răspuns generate dinamic -->
+          </div>
+        </div>
+
+        <div class="controls">
+          <button class="btn btn-ghost" id="restartBtn" disabled>Reia jocul</button>
+          <button class="btn btn-primary" id="startBtn">Start joc</button>
+        </div>
+      </div>
+
+      <div class="side-panel">
+        <div class="ai-header">
+          <div class="ai-avatar">AI</div>
+          <div>
+            <div class="ai-name">Profesorul virtual</div>
+            <div class="ai-role">Adversarul tău digital</div>
+          </div>
+        </div>
+
+        <div class="ai-bubble" id="aiBubble">
+          „Salut! Eu sunt profesorul tău virtual. Hai să vedem dacă un nativ digital mă poate depăși!”
+        </div>
+        <div class="ai-meta" id="aiMeta">AI așteaptă să începi jocul.</div>
+
+        <div class="log" id="log"></div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      <span>
+        🔁 <span class="highlight">Competiție live în clasă:</span> fiecare elev își vede scorul pe telefon.
+        Profesorul poate compara scorurile la final.
+      </span>
+      <span>
+        🤖 Profesorul virtual răspunde și el – la final vei vedea cine câștigă: <span class="danger">AI</span> sau
+        <span class="highlight">nativii digitali</span>.
+      </span>
+    </div>
+  </div>
+
+  <script>
+    // ==============================
+    // 1. SETUL DE ÎNTREBĂRI
+    // ==============================
+    // 👉 CÂND ÎMI DAI TU ÎNTREBĂRILE REALE:
+    // Modifici/înlocuiești obiectele din acest array `questions`.
+
+    const questions = [
+      {
+        text: "Ce înseamnă să fii „nativ digital”?",
+        options: [
+          "Să te fi născut cu telefonul în mână.",
+          "Să fii crescut într-o lume în care tehnologia digitală este prezentă peste tot.",
+          "Să știi să instalezi orice aplicație fără ajutor.",
+          "Să petreci cel puțin 5 ore pe zi pe internet."
+        ],
+        correctIndex: 1,
+        category: "Nativi digitali",
+        explanation: "Un nativ digital e cineva care a crescut înconjurat de tehnologie și pentru care mediul digital e „normalul”."
+      },
+      {
+        text: "Care este cea mai sigură parolă?",
+        options: [
+          "numeprenume2008",
+          "parola1234",
+          "Digi!2024@School",
+          "123456"
+        ],
+        correctIndex: 2,
+        category: "Securitate",
+        explanation: "O parolă puternică are litere mari/mici, cifre și simboluri, și nu conține date ușor de ghicit (nume, an naștere)."
+      },
+      {
+        text: "Primești un mesaj „Ai câștigat un telefon! Intră pe acest link și introdu datele cardului.” Ce faci?",
+        options: [
+          "Intru repede, să nu pierd premiul.",
+          "Trimit linkul tuturor prietenilor.",
+          "Ignor și șterg mesajul / îl raportez.",
+          "Răspund cu ‘Mulțumesc!’."
+        ],
+        correctIndex: 2,
+        category: "Siguranță online",
+        explanation: "Acesta este un exemplu tipic de tentativă de fraudă (phishing). Nu dai niciodată date personale/financiare."
+      }
+    ];
+
+    // ==============================
+    // 2. CONFIGURARE JOC
+    // ==============================
+    const QUESTION_TIME_SECONDS = 20; // ⏱️ timp per întrebare
+    const BASE_POINTS = 100;          // puncte pentru un răspuns corect
+    const BONUS_PER_SECOND = 5;       // bonus pentru fiecare secundă rămasă
+
+    // ==============================
+    // 3. STARE JOC
+    // ==============================
+    let currentIndex = -1;
+    let playerScore = 0;
+    let aiScore = 0;
+    let timeLeft = QUESTION_TIME_SECONDS;
+    let timerInterval = null;
+    let questionActive = false;
+    let aiAnswerIndex = null;
+    let playerName = null;
+
+    // ==============================
+    // 4. ELEMENTE DIN DOM
+    // ==============================
+    const questionTextEl = document.getElementById("questionText");
+    const questionIndexEl = document.getElementById("questionIndex");
+    const questionTotalEl = document.getElementById("questionTotal");
+    const questionCategoryEl = document.getElementById("questionCategory");
+    const answersContainerEl = document.getElementById("answersContainer");
+    const timerBarEl = document.getElementById("timerBar");
+    const timeLeftEl = document.getElementById("timeLeft");
+
+    const playerScoreEl = document.getElementById("playerScore");
+    const aiScoreEl = document.getElementById("aiScore");
+    const playerNameLabelEl = document.getElementById("playerNameLabel");
+    const playerBadgeEl = document.getElementById("playerBadge");
+    const aiBadgeEl = document.getElementById("aiBadge");
+    const timerBadgeEl = document.getElementById("timerBadge");
+
+    const startBtn = document.getElementById("startBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const aiBubbleEl = document.getElementById("aiBubble");
+    const aiMetaEl = document.getElementById("aiMeta");
+    const logEl = document.getElementById("log");
+
+    const startOverlayEl = document.getElementById("startOverlay");
+    const startNameInputEl = document.getElementById("startNameInput");
+    const enterGameBtn = document.getElementById("enterGameBtn");
+    const startSkipNameBtn = document.getElementById("startSkipNameBtn");
+
+    // ==============================
+    // 5. UTILITARE
+    // ==============================
+    function logMessage(text) {
+      const entry = document.createElement("div");
+      entry.className = "log-entry";
+      entry.innerHTML = text;
+      logEl.appendChild(entry);
+      logEl.scrollTop = logEl.scrollHeight;
+    }
+
+    function setTimerBar(value) {
+      const clamped = Math.max(0, Math.min(1, value));
+      timerBarEl.style.transform = "scaleX(" + clamped + ")";
+    }
+
+    function setScores() {
+      playerScoreEl.textContent = playerScore;
+      aiScoreEl.textContent = aiScore;
+    }
+
+    function pulse(el) {
+      el.classList.remove("badge");
+      void el.offsetWidth; // trigger reflow
+      el.classList.add("badge");
+      el.classList.add("pulse");
+      setTimeout(() => el.classList.remove("pulse"), 300);
+    }
+
+    function letterFromIndex(i) {
+      return String.fromCharCode("A".charCodeAt(0) + i);
+    }
+
+    // ==============================
+    // 6. PROFESORUL VIRTUAL (AI)
+    // ==============================
+    function aiChooseAnswer(question) {
+      const correct = question.correctIndex;
+      const rand = Math.random();
+      let chosen;
+      if (rand < 0.7) {
+        chosen = correct;
+      } else {
+        const others = question.options.map((_, i) => i).filter((i) => i !== correct);
+        chosen = others[Math.floor(Math.random() * others.length)];
+      }
+      aiAnswerIndex = chosen;
+
+      const letter = letterFromIndex(chosen);
+      aiBubbleEl.textContent = `„Eu pariez pe varianta ${letter}. Să vedem dacă mă poți contrazice!”`;
+      aiMetaEl.textContent = "Profesorul virtual și-a ales deja răspunsul.";
+
+      logMessage(`<strong>AI</strong>: a ales varianta <strong>${letter}</strong>.`);
+    }
+
+    function aiUpdateAfterQuestion(question, playerCorrect) {
+      const aiCorrect = aiAnswerIndex === question.correctIndex;
+      let aiPoints = 0;
+      if (aiCorrect) {
+        aiPoints = BASE_POINTS * 0.8;
+      }
+
+      aiScore += Math.round(aiPoints);
+      setScores();
+      pulse(aiBadgeEl);
+
+      const letterCorrect = letterFromIndex(question.correctIndex);
+      const letterAI = letterFromIndex(aiAnswerIndex);
+
+      if (playerCorrect && aiCorrect) {
+        aiBubbleEl.textContent =
+          "„De data asta amândoi am avut dreptate. Frumos! Dar cine va conduce la final?”";
+      } else if (playerCorrect && !aiCorrect) {
+        aiBubbleEl.textContent =
+          "„Hmm… se pare că m-ai depășit la întrebarea asta. Încep să mă îngrijorez!”";
+      } else if (!playerCorrect && aiCorrect) {
+        aiBubbleEl.textContent =
+          "„Am prins-o eu de data asta. Nu-i nimic, încă poți reveni!”";
+      } else {
+        aiBubbleEl.textContent =
+          "„Nici eu, nici tu… să revedem noțiunile digitale data viitoare.”";
+      }
+
+      aiMetaEl.textContent =
+        "Răspuns corect: " + letterCorrect + ". AI a ales " + letterAI + ".";
+
+      logMessage(
+        `<strong>Rezultat întrebare:</strong> Tu: ${playerCorrect ? "corect" : "greșit / timp expirat"}, AI: ${
+          aiCorrect ? "corect" : "greșit"
+        }.`
+      );
+    }
+
+    // ==============================
+    // 7. TIMER
+    // ==============================
+    function startTimer() {
+      clearInterval(timerInterval);
+      timeLeft = QUESTION_TIME_SECONDS;
+      timeLeftEl.textContent = timeLeft.toString();
+      setTimerBar(1);
+      pulse(timerBadgeEl);
+
+      timerInterval = setInterval(() => {
+        if (!questionActive) {
+          clearInterval(timerInterval);
+          return;
+        }
+        timeLeft -= 1;
+        timeLeftEl.textContent = Math.max(0, timeLeft).toString();
+        setTimerBar(timeLeft / QUESTION_TIME_SECONDS);
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          handleTimeUp();
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+
+    // ==============================
+    // 8. GESTIONARE RĂSPUNS
+    // ==============================
+    function handleAnswerClick(index) {
+      if (!questionActive) return;
+      const question = questions[currentIndex];
+      questionActive = false;
+      stopTimer();
+
+      const buttons = answersContainerEl.querySelectorAll(".answer-btn");
+      buttons.forEach((btn, i) => {
+        btn.classList.add("disabled");
+        const key = btn.querySelector(".answer-key");
+        if (i === question.correctIndex) {
+          btn.classList.add("correct");
+          key.classList.add("correct");
+        } else if (i === index) {
+          btn.classList.add("wrong");
+          key.classList.add("wrong");
+        }
+      });
+
+      let playerCorrect = index === question.correctIndex;
+      let points = 0;
+      if (playerCorrect) {
+        const bonus = timeLeft * BONUS_PER_SECOND;
+        points = BASE_POINTS + bonus;
+        playerScore += points;
+        setScores();
+        pulse(playerBadgeEl);
+
+        logMessage(
+          `<strong>Tu</strong>: răspuns corect! +${Math.round(points)} puncte (bonus timp: ${Math.max(
+            0,
+            timeLeft
+          )}s).`
+        );
+      } else {
+        logMessage("<strong>Tu</strong>: răspuns greșit sau nu ai ales varianta corectă.");
+      }
+
+      aiUpdateAfterQuestion(question, playerCorrect);
+
+      if (question.explanation) {
+        setTimeout(() => {
+          logMessage(`<em>Explicație:</em> ${question.explanation}`);
+        }, 400);
+      }
+
+      setTimeout(nextQuestionOrEnd, 1800);
+    }
+
+    function handleTimeUp() {
+      if (!questionActive) return;
+      questionActive = false;
+
+      const question = questions[currentIndex];
+      const buttons = answersContainerEl.querySelectorAll(".answer-btn");
+      buttons.forEach((btn, i) => {
+        btn.classList.add("disabled");
+        const key = btn.querySelector(".answer-key");
+        if (i === question.correctIndex) {
+          btn.classList.add("correct");
+          key.classList.add("correct");
+        }
+      });
+
+      logMessage("<strong>Tu</strong>: timpul a expirat, nu ai ales niciun răspuns.");
+      aiUpdateAfterQuestion(question, false);
+
+      if (question.explanation) {
+        setTimeout(() => {
+          logMessage(`<em>Explicație:</em> ${question.explanation}`);
+        }, 400);
+      }
+
+      setTimeout(nextQuestionOrEnd, 1800);
+    }
+
+    // ==============================
+    // 9. AFIȘARE ÎNTREBARE
+    // ==============================
+    function showQuestion(index) {
+      const question = questions[index];
+      const total = questions.length;
+
+      questionIndexEl.textContent = (index + 1).toString();
+      questionTotalEl.textContent = total.toString();
+      questionCategoryEl.textContent = question.category || "Lumea digitală";
+
+      questionTextEl.textContent = question.text;
+      answersContainerEl.innerHTML = "";
+
+      question.options.forEach((opt, i) => {
+        const btn = document.createElement("button");
+        btn.className = "answer-btn";
+        btn.innerHTML = `
+          <div class="answer-key">${letterFromIndex(i)}</div>
+          <div class="answer-text">${opt}</div>
+        `;
+        btn.addEventListener("click", () => handleAnswerClick(i));
+        answersContainerEl.appendChild(btn);
+      });
+
+      questionActive = true;
+      aiMetaEl.textContent = "Profesorul virtual gândește deja răspunsul său…";
+      aiBubbleEl.textContent = "„Analizez informațiile digitale… răspunsul meu vine imediat!”";
+
+      aiAnswerIndex = null;
+      setTimerBar(1);
+      timeLeftEl.textContent = QUESTION_TIME_SECONDS.toString();
+
+      setTimeout(() => {
+        if (!questionActive) return;
+        aiChooseAnswer(question);
+      }, 700);
+
+      startTimer();
+    }
+
+    function nextQuestionOrEnd() {
+      currentIndex++;
+      if (currentIndex < questions.length) {
+        showQuestion(currentIndex);
+      } else {
+        endGame();
+      }
+    }
+
+    // ==============================
+    // 10. PORNIRE / FINAL JOC
+    // ==============================
+    function startGame() {
+      playerScore = 0;
+      aiScore = 0;
+      setScores();
+      currentIndex = -1;
+      logEl.innerHTML = "";
+      startBtn.disabled = true;
+      restartBtn.disabled = false;
+
+      const displayName = playerName || "Tu";
+      logMessage(`<strong>${displayName}</strong> a început jocul împotriva Profesorului virtual.`);
+      aiBubbleEl.textContent = "„Succes! Să vedem cât de bine stăpânești lumea digitală.”";
+      aiMetaEl.textContent = "Jocul a început.";
+
+      nextQuestionOrEnd();
+    }
+
+    function endGame() {
+      questionActive = false;
+      stopTimer();
+      setTimerBar(0);
+      timeLeftEl.textContent = "0";
+
+      startBtn.disabled = false;
+      startBtn.textContent = "Joacă din nou";
+
+      const displayName = playerName || "Tu";
+      let message;
+      if (playerScore > aiScore) {
+        message = `„Impresionant, ${displayName}! Nativii digitali au câștigat! 👏”`;
+      } else if (playerScore < aiScore) {
+        message = "„De data asta AI a câștigat… dar poți să încerci din nou! 🤖”";
+      } else {
+        message = "„Egalitate perfectă! Se pare că gândim foarte asemănător. 😎”";
+      }
+
+      aiBubbleEl.textContent = message;
+      aiMetaEl.textContent = `Scor final – ${displayName}: ${playerScore}, AI: ${aiScore}.`;
+
+      logMessage(
+        `<strong>Scor final:</strong> ${displayName}: ${playerScore} puncte, Profesor virtual (AI): ${aiScore} puncte.`
+      );
+      logMessage("Profesorul poate compara acum scorurile elevilor pentru un clasament în clasă.");
+    }
+
+    // ==============================
+    // 11. PAGINA DE START – NUME FĂRĂ CRONOMETRU
+    // ==============================
+    function enterGame(withName) {
+      if (withName) {
+        const value = startNameInputEl.value.trim();
+        if (value) {
+          playerName = value;
+          playerNameLabelEl.textContent = value;
+          logMessage(`Numele tău a fost setat la <strong>${value}</strong>.`);
+        } else {
+          playerName = null;
+          playerNameLabelEl.textContent = "Tu";
+        }
+      } else {
+        playerName = null;
+        playerNameLabelEl.textContent = "Tu";
+      }
+
+      startOverlayEl.classList.add("hidden");
+      // IMPORTANT: jocul NU începe încă.
+      // Elevul trebuie să apese „Start joc”.
+      aiMetaEl.textContent = "Apasă „Start joc” când ești pregătit.";
+      aiBubbleEl.textContent = "„Când ești gata, apasă Start joc și să începem bătălia digitală!”";
+    }
+
+    // ==============================
+    // 12. EVENIMENTE BUTOANE
+    // ==============================
+    startBtn.addEventListener("click", () => {
+      startGame();
+    });
+
+    restartBtn.addEventListener("click", () => {
+      startGame();
+    });
+
+    enterGameBtn.addEventListener("click", () => {
+      enterGame(true);
+    });
+
+    startSkipNameBtn.addEventListener("click", () => {
+      enterGame(false);
+    });
+
+    startNameInputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        enterGame(true);
+      }
+    });
+
+    // ==============================
+    // 13. INIT
+    // ==============================
+    questionTotalEl.textContent = questions.length.toString();
+    setScores();
+    setTimerBar(0);
+    timeLeftEl.textContent = "0";
+    aiMetaEl.textContent = "AI așteaptă să începi jocul.";
+
+  </script>
+</body>
+</html>
