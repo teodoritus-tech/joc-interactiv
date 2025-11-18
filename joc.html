@@ -14,8 +14,8 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at top, #020617, #020617 45%, #020617 100%);
-      color: #e5e7eb;
+      background: linear-gradient(135deg, #0ea5e9, #6366f1);
+      color: #0f172a;
       display: flex;
       align-items: stretch;
       justify-content: center;
@@ -25,12 +25,12 @@
     .app {
       width: 100%;
       max-width: 900px;
-      background: rgba(15, 23, 42, 0.96);
+      background: rgba(248, 250, 252, 0.96);
       border-radius: 22px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
       padding: 12px 14px 16px;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(14px);
       position: relative;
       overflow: hidden;
       animation: cardIn 0.4s ease-out;
@@ -64,13 +64,14 @@
     }
 
     .title {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
+      color: #0f172a;
     }
 
     .subtitle {
-      font-size: 0.85rem;
-      color: #9ca3af;
+      font-size: 0.9rem;
+      color: #6b7280;
       margin-top: 2px;
     }
 
@@ -95,32 +96,33 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 4px 8px;
+      padding: 5px 9px;
       border-radius: 999px;
-      background: rgba(31, 41, 55, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      font-size: 0.72rem;
+      background: rgba(239, 246, 255, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.9);
+      font-size: 0.76rem;
     }
 
     .badge-label {
-      color: #9ca3af;
+      color: #6b7280;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
     }
 
     .badge-value {
       font-weight: 600;
+      color: #111827;
     }
 
     .badge.player {
-      border-color: rgba(34, 197, 94, 0.8);
-      background: radial-gradient(circle at top left, rgba(22, 163, 74, 0.35), rgba(17, 24, 39, 0.95));
+      border-color: rgba(34, 197, 94, 0.9);
+      background: linear-gradient(135deg, #dcfce7, #bbf7d0);
     }
 
     .badge.timer {
-      border-color: rgba(248, 113, 113, 0.9);
-      background: radial-gradient(circle at top left, rgba(248, 113, 113, 0.25), rgba(17, 24, 39, 0.95));
+      border-color: rgba(249, 115, 22, 0.9);
+      background: linear-gradient(135deg, #ffedd5, #fed7aa);
     }
 
     .badge.pulse {
@@ -159,30 +161,64 @@
     .question-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.75rem;
-      color: #9ca3af;
+      font-size: 0.82rem;
+      color: #6b7280;
     }
 
     .question-box {
-      border-radius: 14px;
-      padding: 10px;
-      background: rgba(15, 23, 42, 0.98);
-      border: 1px solid rgba(75, 85, 99, 0.9);
-      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.7);
+      border-radius: 16px;
+      padding: 11px 11px 10px;
+      background: #eff6ff;
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);
     }
 
     .question-text {
-      font-size: 0.9rem;
-      line-height: 1.4;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #111827;
+    }
+
+    /* Bară de progres întrebări */
+
+    .progress-wrapper {
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #4b5563;
+      margin-bottom: 3px;
+    }
+
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      border-radius: 999px;
+      background: #e5e7eb;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #22c55e, #3b82f6);
+      transition: width 0.25s ease-out;
     }
 
     .timer-bar-wrapper {
       margin-top: 8px;
       height: 7px;
-      background: rgba(31, 41, 55, 0.9);
+      background: #e5e7eb;
       border-radius: 999px;
       overflow: hidden;
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      border: 1px solid #d1d5db;
     }
 
     .timer-bar {
@@ -203,12 +239,12 @@
     .answer-btn {
       width: 100%;
       text-align: left;
-      padding: 8px 10px;
+      padding: 9px 11px;
       border-radius: 12px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.95);
-      color: #e5e7eb;
-      font-size: 0.85rem;
+      border: 1px solid #cbd5f5;
+      background: #ffffff;
+      color: #111827;
+      font-size: 0.95rem;
       cursor: pointer;
       display: flex;
       gap: 8px;
@@ -217,21 +253,27 @@
       touch-action: manipulation;
     }
 
+    .answer-btn:hover {
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.18);
+      border-color: #818cf8;
+    }
+
     .answer-btn:active {
       transform: translateY(1px) scale(0.99);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 8px rgba(15, 23, 42, 0.2);
     }
 
     .answer-key {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
       border-radius: 999px;
-      border: 1px solid rgba(75, 85, 99, 0.9);
+      border: 1px solid #cbd5f5;
+      background: #eff6ff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.7rem;
-      color: #9ca3af;
+      font-size: 0.8rem;
+      color: #4b5563;
       flex-shrink: 0;
     }
 
@@ -240,38 +282,40 @@
     }
 
     .answer-btn.correct {
-      background: radial-gradient(circle at top left, rgba(22, 163, 74, 0.35), rgba(15, 23, 42, 0.98));
-      border-color: rgba(34, 197, 94, 0.9);
+      background: #dcfce7;
+      border-color: #22c55e;
     }
 
     .answer-btn.wrong {
-      background: radial-gradient(circle at top left, rgba(239, 68, 68, 0.35), rgba(15, 23, 42, 0.98));
-      border-color: rgba(248, 113, 113, 0.95);
+      background: #fee2e2;
+      border-color: #ef4444;
     }
 
     .answer-btn.disabled {
-      opacity: 0.75;
+      opacity: 0.85;
       pointer-events: none;
     }
 
     .answer-key.correct {
-      border-color: rgba(34, 197, 94, 0.9);
-      color: #bbf7d0;
+      border-color: #16a34a;
+      background: #bbf7d0;
+      color: #065f46;
     }
 
     .answer-key.wrong {
-      border-color: rgba(239, 68, 68, 0.9);
-      color: #fecaca;
+      border-color: #ef4444;
+      background: #fecaca;
+      color: #991b1b;
     }
 
     .controls {
-      margin-top: 6px;
+      margin-top: 8px;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
       gap: 6px;
-      font-size: 0.75rem;
-      color: #9ca3af;
+      font-size: 0.8rem;
+      color: #6b7280;
     }
 
     .btn {
@@ -280,7 +324,7 @@
       border: none;
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.78rem;
+      font-size: 0.82rem;
       transition: transform 0.06s ease, box-shadow 0.1s ease, background 0.15s ease;
       display: inline-flex;
       align-items: center;
@@ -290,20 +334,20 @@
     }
 
     .btn-primary {
-      background: linear-gradient(to right, #22c55e, #16a34a);
-      color: #022c22;
-      box-shadow: 0 7px 16px rgba(34, 197, 94, 0.35);
+      background: linear-gradient(to right, #22c55e, #3b82f6);
+      color: #f9fafb;
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.35);
     }
 
     .btn-primary:active {
       transform: translateY(1px) scale(0.98);
-      box-shadow: 0 3px 8px rgba(34, 197, 94, 0.25);
+      box-shadow: 0 5px 12px rgba(56, 189, 248, 0.25);
     }
 
     .btn-ghost {
-      background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: #e5e7eb;
+      color: #111827;
+      border: 1px solid #d1d5db;
     }
 
     .btn[disabled] {
@@ -313,17 +357,29 @@
       transform: none;
     }
 
+    .btn-start {
+      padding: 10px 26px;
+      font-size: 0.95rem;
+      border-radius: 999px;
+    }
+
+    .btn-restart {
+      font-size: 0.78rem;
+      padding: 5px 10px;
+    }
+
     /* PANOU JURNAL */
 
     .side-panel {
-      border-radius: 14px;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 1));
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      padding: 8px;
+      border-radius: 16px;
+      background: #eef2ff;
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      padding: 9px;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
+      box-shadow: 0 8px 20px rgba(30, 64, 175, 0.15);
     }
 
     .info-header {
@@ -336,7 +392,7 @@
       width: 26px;
       height: 26px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #22c55e, #16a34a, #15803d);
+      background: linear-gradient(135deg, #22c55e, #16a34a);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -347,57 +403,59 @@
     }
 
     .info-title {
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       font-weight: 600;
+      color: #111827;
     }
 
     .info-subtitle {
-      font-size: 0.7rem;
-      color: #9ca3af;
+      font-size: 0.75rem;
+      color: #6b7280;
     }
 
     .info-bubble {
       margin-top: 2px;
       border-radius: 10px;
       padding: 6px 8px;
-      background: rgba(15, 23, 42, 0.97);
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      font-size: 0.78rem;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      font-size: 0.8rem;
       line-height: 1.3;
+      color: #111827;
     }
 
     .info-meta {
-      font-size: 0.7rem;
-      color: #9ca3af;
+      font-size: 0.75rem;
+      color: #6b7280;
     }
 
     .log {
-      margin-top: 2px;
-      font-size: 0.7rem;
-      color: #9ca3af;
-      max-height: 110px;
+      margin-top: 3px;
+      font-size: 0.75rem;
+      color: #6b7280;
+      max-height: 120px;
       overflow-y: auto;
       padding-right: 2px;
     }
 
     .log-entry {
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
     .log-entry strong {
-      color: #e5e7eb;
+      color: #111827;
     }
 
     .footer-note {
       margin-top: 8px;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       color: #6b7280;
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
 
-    .highlight { color: #22c55e; }
+    .highlight { color: #16a34a; }
 
     .hidden { display: none !important; }
 
@@ -406,7 +464,7 @@
     .start-overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.99));
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.95), rgba(129, 140, 248, 0.97));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -418,13 +476,14 @@
     .start-card {
       width: 100%;
       max-width: 520px;
-      background: rgba(15, 23, 42, 1);
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.8);
+      background: rgba(248, 250, 252, 0.98);
+      border-radius: 20px;
+      border: 1px solid rgba(191, 219, 254, 0.9);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.45);
       padding: 14px 14px 12px;
       animation: startIn 0.3s ease-out;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
+      color: #0f172a;
     }
 
     @keyframes startIn {
@@ -433,71 +492,94 @@
     }
 
     .start-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       margin-bottom: 4px;
       font-weight: 700;
+      color: #0f172a;
     }
 
     .start-subtitle {
-      font-size: 0.8rem;
-      color: #9ca3af;
+      font-size: 0.85rem;
+      color: #4b5563;
       margin-bottom: 6px;
     }
 
     .start-section-title {
-      font-size: 0.8rem;
+      font-size: 0.86rem;
       font-weight: 600;
-      margin-top: 6px;
-      margin-bottom: 2px;
-      color: #e5e7eb;
+      margin-top: 8px;
+      margin-bottom: 3px;
+      color: #111827;
     }
 
     .start-list {
-      font-size: 0.78rem;
-      color: #d1d5db;
-      padding-left: 16px;
+      font-size: 0.82rem;
+      color: #374151;
+      padding-left: 18px;
     }
 
     .start-list li {
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
     .start-name-row {
-      margin-top: 6px;
+      margin-top: 8px;
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
 
     .start-name-row label {
-      font-size: 0.78rem;
-      color: #e5e7eb;
+      font-size: 0.8rem;
+      color: #111827;
     }
 
     .start-name-row input {
-      padding: 6px 9px;
+      padding: 7px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.97);
-      color: #e5e7eb;
-      font-size: 0.78rem;
+      border: 1px solid #cbd5f5;
+      background: #ffffff;
+      color: #111827;
+      font-size: 0.85rem;
     }
 
     .start-name-row input::placeholder {
-      color: #6b7280;
-    }
-
-    .start-note {
-      margin-top: 4px;
-      font-size: 0.74rem;
       color: #9ca3af;
     }
 
+    .start-note {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: #4b5563;
+    }
+
     .start-buttons {
-      margin-top: 8px;
+      margin-top: 10px;
       display: flex;
       justify-content: flex-end;
       gap: 6px;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 8px;
+        font-size: 16px;
+      }
+      .title {
+        font-size: 1.35rem;
+      }
+      .subtitle {
+        font-size: 0.95rem;
+      }
+      .question-text {
+        font-size: 1.05rem;
+      }
+      .answer-btn {
+        font-size: 1rem;
+      }
+      .info-bubble {
+        font-size: 0.85rem;
+      }
     }
 
     @media (max-width: 400px) {
@@ -519,9 +601,10 @@
 
       <div class="start-section-title">Cum se joacă:</div>
       <ul class="start-list">
-        <li>📱 Fiecare întrebare are mai multe variante de răspuns.</li>
+        <li>📱 Fiecare întrebare are o singură variantă corectă de răspuns.</li>
         <li>⏱️ Ai timp limitat pe întrebare – cu cât răspunzi mai repede, cu atât primești mai multe puncte.</li>
         <li>🏆 La final, arată scorul profesorului pentru clasamentul clasei.</li>
+        <li>▶️ Apăsați pe butonul „Intră în joc” pentru a începe jocul!</li>
       </ul>
 
       <div class="start-section-title">Introduce-ți numele (opțional):</div>
@@ -575,6 +658,17 @@
           <span id="questionCategory">—</span>
         </div>
 
+        <!-- Bară de progres -->
+        <div class="progress-wrapper">
+          <div class="progress-info">
+            <span>Progres întrebări</span>
+            <span id="progressText">0 / 0</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressBarFill"></div>
+          </div>
+        </div>
+
         <div class="question-box">
           <div class="question-text" id="questionText">
             Apasă „Start joc” când ești pregătit să începi seria de întrebări.
@@ -586,8 +680,8 @@
         </div>
 
         <div class="controls">
-          <button class="btn btn-ghost" id="restartBtn" disabled>Reia jocul</button>
-          <button class="btn btn-primary" id="startBtn">Start joc</button>
+          <button class="btn btn-ghost btn-restart" id="restartBtn" disabled>Reia jocul</button>
+          <button class="btn btn-primary btn-start" id="startBtn">Start joc</button>
         </div>
       </div>
 
@@ -707,7 +801,7 @@
     ];
 
     // 2. CONFIGURARE
-    const QUESTION_TIME_SECONDS = 20;
+    const QUESTION_TIME_SECONDS = 30; // 30 de secunde per întrebare
     const BASE_POINTS = 100;
     const BONUS_PER_SECOND = 5;
 
@@ -718,6 +812,7 @@
     let timerInterval = null;
     let questionActive = false;
     let playerName = null;
+    let activeQuestions = [...questions]; // va fi re-umplut și amestecat la start
 
     // 4. ELEMENTE DOM
     const questionTextEl = document.getElementById("questionText");
@@ -727,6 +822,9 @@
     const answersContainerEl = document.getElementById("answersContainer");
     const timerBarEl = document.getElementById("timerBar");
     const timeLeftEl = document.getElementById("timeLeft");
+
+    const progressTextEl = document.getElementById("progressText");
+    const progressBarFillEl = document.getElementById("progressBarFill");
 
     const playerScoreEl = document.getElementById("playerScore");
     const playerNameLabelEl = document.getElementById("playerNameLabel");
@@ -775,6 +873,23 @@
       return String.fromCharCode("A".charCodeAt(0) + i);
     }
 
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function updateProgress() {
+      const total = activeQuestions.length;
+      const current = currentIndex + 1;
+      const shownCurrent = Math.min(current, total);
+      progressTextEl.textContent = total > 0 ? `${shownCurrent} / ${total}` : "0 / 0";
+      const ratio = total > 0 ? Math.min(Math.max(current / total, 0), 1) : 0;
+      progressBarFillEl.style.width = (ratio * 100).toString() + "%";
+    }
+
     // TIMER
     function startTimer() {
       clearInterval(timerInterval);
@@ -805,7 +920,7 @@
     // RĂSPUNSURI
     function handleAnswerClick(index) {
       if (!questionActive) return;
-      const question = questions[currentIndex];
+      const question = activeQuestions[currentIndex];
       questionActive = false;
       stopTimer();
 
@@ -861,7 +976,7 @@
     function handleTimeUp() {
       if (!questionActive) return;
       questionActive = false;
-      const question = questions[currentIndex];
+      const question = activeQuestions[currentIndex];
 
       const buttons = answersContainerEl.querySelectorAll(".answer-btn");
       buttons.forEach((btn, i) => {
@@ -893,8 +1008,8 @@
 
     // ÎNTREBĂRI
     function showQuestion(index) {
-      const question = questions[index];
-      const total = questions.length;
+      const question = activeQuestions[index];
+      const total = activeQuestions.length;
 
       questionIndexEl.textContent = (index + 1).toString();
       questionTotalEl.textContent = total.toString();
@@ -917,6 +1032,7 @@
       infoBubbleEl.textContent = "Alege varianta corectă cât mai repede.";
       infoMetaEl.textContent = `Ai ${QUESTION_TIME_SECONDS} secunde pentru această întrebare.`;
 
+      updateProgress();
       setTimerBar(1);
       timeLeftEl.textContent = QUESTION_TIME_SECONDS.toString();
       startTimer();
@@ -924,7 +1040,7 @@
 
     function nextQuestionOrEnd() {
       currentIndex++;
-      if (currentIndex < questions.length) {
+      if (currentIndex < activeQuestions.length) {
         showQuestion(currentIndex);
       } else {
         endGame();
@@ -933,12 +1049,18 @@
 
     // START / FINAL JOC
     function startGame() {
+      // resetare stare + amestecare întrebări
+      activeQuestions = shuffleArray([...questions]);
       playerScore = 0;
       setScores();
       currentIndex = -1;
       logEl.innerHTML = "";
       startBtn.disabled = true;
       restartBtn.disabled = false;
+
+      questionTotalEl.textContent = activeQuestions.length.toString();
+      progressBarFillEl.style.width = "0%";
+      progressTextEl.textContent = `0 / ${activeQuestions.length}`;
 
       const displayName = playerName || "Tu";
       logMessage(`<strong>${displayName}</strong> a început jocul.`);
@@ -955,6 +1077,9 @@
       timeLeftEl.textContent = "0";
       startBtn.disabled = false;
       startBtn.textContent = "Joacă din nou";
+
+      progressBarFillEl.style.width = "100%";
+      progressTextEl.textContent = `${activeQuestions.length} / ${activeQuestions.length}`;
 
       const displayName = playerName || "Tu";
       infoBubbleEl.textContent = `Gata jocul!`;
@@ -1000,6 +1125,7 @@
 
     // INIT
     questionTotalEl.textContent = questions.length.toString();
+    progressTextEl.textContent = `0 / ${questions.length}`;
     setScores();
     setTimerBar(0);
     timeLeftEl.textContent = "0";
