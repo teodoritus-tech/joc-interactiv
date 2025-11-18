@@ -556,8 +556,77 @@
     .start-buttons {
       margin-top: 10px;
       display: flex;
-      justify-content: flex-end;
-      gap: 6px;
+      justify-content: center; /* CENTRAT */
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .btn-start-intro {
+      padding: 10px 26px;
+      font-size: 0.95rem;
+      border-radius: 999px;
+    }
+
+    /* PAGINA DE FINAL – overlay separat */
+
+    .end-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.96), rgba(129, 140, 248, 0.98));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 110;
+      overflow-y: auto;
+    }
+
+    .end-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(248, 250, 252, 0.98);
+      border-radius: 24px;
+      border: 1px solid rgba(191, 219, 254, 0.9);
+      box-shadow: 0 22px 45px rgba(15, 23, 42, 0.5);
+      padding: 24px 16px 18px;
+      text-align: center;
+    }
+
+    .end-message {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .end-score {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: #16a34a;
+      margin-bottom: 18px;
+    }
+
+    .end-subtext {
+      font-size: 0.9rem;
+      color: #4b5563;
+      margin-bottom: 18px;
+    }
+
+    .end-restart-btn {
+      padding: 10px 26px;
+      font-size: 1rem;
+      border-radius: 999px;
+      background: linear-gradient(to right, #22c55e, #3b82f6);
+      color: #f9fafb;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.35);
+    }
+
+    .end-restart-btn:active {
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 5px 12px rgba(56, 189, 248, 0.25);
     }
 
     @media (max-width: 600px) {
@@ -579,6 +648,12 @@
       }
       .info-bubble {
         font-size: 0.85rem;
+      }
+      .end-message {
+        font-size: 1.35rem;
+      }
+      .end-score {
+        font-size: 2.1rem;
       }
     }
 
@@ -603,7 +678,7 @@
       <ul class="start-list">
         <li>📱 Fiecare întrebare are o singură variantă corectă de răspuns.</li>
         <li>⏱️ Ai timp limitat pe întrebare – cu cât răspunzi mai repede, cu atât primești mai multe puncte.</li>
-        <li>🏆 La final, arată scorul profesorului pentru clasamentul clasei.</li>
+        <li>🏆 Atunci când ai terminat, arată scorul profesorului pentru clasamentul clasei.</li>
         <li>▶️ Apăsați pe butonul „Intră în joc” pentru a începe jocul!</li>
       </ul>
 
@@ -619,9 +694,21 @@
       </div>
 
       <div class="start-buttons">
-        <button class="btn btn-ghost" id="startSkipNameBtn">Intră fără nume</button>
-        <button class="btn btn-primary" id="enterGameBtn">Intră în joc</button>
+        <button class="btn btn-ghost btn-start-intro" id="startSkipNameBtn">Intră fără nume</button>
+        <button class="btn btn-primary btn-start-intro" id="enterGameBtn">Intră în joc</button>
       </div>
+    </div>
+  </div>
+
+  <!-- PAGINA DE FINAL – overlay cu scor -->
+  <div class="end-overlay hidden" id="endOverlay">
+    <div class="end-card">
+      <div class="end-message">Felicitări, scorul dumneavoastră este:</div>
+      <div class="end-score" id="endScoreValue">0</div>
+      <div class="end-subtext">
+        Arătați acest scor profesorului pentru a intra în clasamentul clasei.
+      </div>
+      <button class="end-restart-btn" id="playAgainBtn">Joacă din nou</button>
     </div>
   </div>
 
@@ -680,7 +767,8 @@
         </div>
 
         <div class="controls">
-          <button class="btn btn-ghost btn-restart" id="restartBtn" disabled>Reia jocul</button>
+          <!-- Buton Reia jocul – scos vizual (hidden) -->
+          <button class="btn btn-ghost btn-restart hidden" id="restartBtn">Reia jocul</button>
           <button class="btn btn-primary btn-start" id="startBtn">Start joc</button>
         </div>
       </div>
@@ -832,8 +920,7 @@
     const timerBadgeEl = document.getElementById("timerBadge");
 
     const startBtn = document.getElementById("startBtn");
-    const restartBtn = document.getElementById("restartBtn");
-
+    const restartBtn = document.getElementById("restartBtn"); // există dar e ascuns vizual
     const infoBubbleEl = document.getElementById("infoBubble");
     const infoMetaEl = document.getElementById("infoMeta");
     const logEl = document.getElementById("log");
@@ -842,6 +929,10 @@
     const startNameInputEl = document.getElementById("startNameInput");
     const enterGameBtn = document.getElementById("enterGameBtn");
     const startSkipNameBtn = document.getElementById("startSkipNameBtn");
+
+    const endOverlayEl = document.getElementById("endOverlay");
+    const endScoreValueEl = document.getElementById("endScoreValue");
+    const playAgainBtn = document.getElementById("playAgainBtn");
 
     // UTILITARE
     function logMessage(text) {
@@ -1049,6 +1140,9 @@
 
     // START / FINAL JOC
     function startGame() {
+      // ascundem eventualul overlay de final
+      endOverlayEl.classList.add("hidden");
+
       // resetare stare + amestecare întrebări
       activeQuestions = shuffleArray([...questions]);
       playerScore = 0;
@@ -1056,7 +1150,6 @@
       currentIndex = -1;
       logEl.innerHTML = "";
       startBtn.disabled = true;
-      restartBtn.disabled = false;
 
       questionTotalEl.textContent = activeQuestions.length.toString();
       progressBarFillEl.style.width = "0%";
@@ -1075,8 +1168,6 @@
       stopTimer();
       setTimerBar(0);
       timeLeftEl.textContent = "0";
-      startBtn.disabled = false;
-      startBtn.textContent = "Joacă din nou";
 
       progressBarFillEl.style.width = "100%";
       progressTextEl.textContent = `${activeQuestions.length} / ${activeQuestions.length}`;
@@ -1085,9 +1176,11 @@
       infoBubbleEl.textContent = `Gata jocul!`;
       infoMetaEl.textContent = `Scorul tău final este ${playerScore} puncte. Arată-l profesorului pentru clasament.`;
 
-      logMessage(
-        `<strong>Scor final</strong> pentru ${displayName}: ${playerScore} puncte.`
-      );
+      logMessage(`<strong>Scor final</strong> pentru ${displayName}: ${playerScore} puncte.`);
+
+      // Afișăm overlay-ul de final cu mesajul mare + scor
+      endScoreValueEl.textContent = playerScore.toString();
+      endOverlayEl.classList.remove("hidden");
     }
 
     // PAGINA DE START
@@ -1114,13 +1207,16 @@
 
     // EVENIMENTE
     startBtn.addEventListener("click", () => startGame());
-    restartBtn.addEventListener("click", () => startGame());
 
     enterGameBtn.addEventListener("click", () => enterGame(true));
     startSkipNameBtn.addEventListener("click", () => enterGame(false));
 
     startNameInputEl.addEventListener("keydown", (e) => {
       if (e.key === "Enter") enterGame(true);
+    });
+
+    playAgainBtn.addEventListener("click", () => {
+      startGame();
     });
 
     // INIT
