@@ -20,6 +20,11 @@
       align-items: stretch;
       justify-content: center;
       padding: 10px;
+      font-size: 16px;
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     .app {
@@ -100,7 +105,7 @@
       border-radius: 999px;
       background: rgba(239, 246, 255, 0.95);
       border: 1px solid rgba(148, 163, 184, 0.9);
-      font-size: 0.76rem;
+      font-size: 0.8rem;
     }
 
     .badge-label {
@@ -161,7 +166,7 @@
     .question-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: #6b7280;
     }
 
@@ -174,7 +179,7 @@
     }
 
     .question-text {
-      font-size: 1rem;
+      font-size: 1.05rem;
       line-height: 1.5;
       color: #111827;
     }
@@ -190,7 +195,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: #4b5563;
       margin-bottom: 3px;
     }
@@ -239,12 +244,12 @@
     .answer-btn {
       width: 100%;
       text-align: left;
-      padding: 9px 11px;
+      padding: 10px 12px;
       border-radius: 12px;
       border: 1px solid #cbd5f5;
       background: #ffffff;
       color: #111827;
-      font-size: 0.95rem;
+      font-size: 1rem;
       cursor: pointer;
       display: flex;
       gap: 8px;
@@ -264,15 +269,15 @@
     }
 
     .answer-key {
-      width: 24px;
-      height: 24px;
+      width: 26px;
+      height: 26px;
       border-radius: 999px;
       border: 1px solid #cbd5f5;
       background: #eff6ff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #4b5563;
       flex-shrink: 0;
     }
@@ -309,22 +314,22 @@
     }
 
     .controls {
-      margin-top: 8px;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #6b7280;
     }
 
     .btn {
-      padding: 7px 12px;
+      padding: 8px 14px;
       border-radius: 999px;
       border: none;
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.82rem;
+      font-size: 0.9rem;
       transition: transform 0.06s ease, box-shadow 0.1s ease, background 0.15s ease;
       display: inline-flex;
       align-items: center;
@@ -358,14 +363,11 @@
     }
 
     .btn-start {
-      padding: 10px 26px;
-      font-size: 0.95rem;
+      padding: 12px 26px;
+      font-size: 1rem;
       border-radius: 999px;
-    }
-
-    .btn-restart {
-      font-size: 0.78rem;
-      padding: 5px 10px;
+      min-width: 200px;
+      justify-content: center;
     }
 
     /* PANOU JURNAL */
@@ -378,7 +380,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       box-shadow: 0 8px 20px rgba(30, 64, 175, 0.15);
     }
 
@@ -403,13 +405,13 @@
     }
 
     .info-title {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       font-weight: 600;
       color: #111827;
     }
 
     .info-subtitle {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: #6b7280;
     }
 
@@ -419,19 +421,19 @@
       padding: 6px 8px;
       background: #ffffff;
       border: 1px solid #e5e7eb;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       line-height: 1.3;
       color: #111827;
     }
 
     .info-meta {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: #6b7280;
     }
 
     .log {
       margin-top: 3px;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: #6b7280;
       max-height: 120px;
       overflow-y: auto;
@@ -448,23 +450,19 @@
 
     .footer-note {
       margin-top: 8px;
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: #6b7280;
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
 
-    .highlight { color: #16a34a; }
-
-    .hidden { display: none !important; }
-
     /* PAGINA DE START – full-screen, cu scroll pe mobil */
 
     .start-overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(135deg, rgba(14, 165, 233, 0.95), rgba(129, 140, 248, 0.97));
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.96), rgba(129, 140, 248, 0.98));
       display: flex;
       align-items: center;
       justify-content: center;
@@ -480,9 +478,9 @@
       border-radius: 20px;
       border: 1px solid rgba(191, 219, 254, 0.9);
       box-shadow: 0 20px 40px rgba(15, 23, 42, 0.45);
-      padding: 14px 14px 12px;
+      padding: 16px 16px 14px;
       animation: startIn 0.3s ease-out;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #0f172a;
     }
 
@@ -492,20 +490,20 @@
     }
 
     .start-title {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       margin-bottom: 4px;
       font-weight: 700;
       color: #0f172a;
     }
 
     .start-subtitle {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #4b5563;
       margin-bottom: 6px;
     }
 
     .start-section-title {
-      font-size: 0.86rem;
+      font-size: 0.9rem;
       font-weight: 600;
       margin-top: 8px;
       margin-bottom: 3px;
@@ -513,7 +511,7 @@
     }
 
     .start-list {
-      font-size: 0.82rem;
+      font-size: 0.85rem;
       color: #374151;
       padding-left: 18px;
     }
@@ -530,17 +528,17 @@
     }
 
     .start-name-row label {
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       color: #111827;
     }
 
     .start-name-row input {
-      padding: 7px 10px;
+      padding: 8px 11px;
       border-radius: 999px;
       border: 1px solid #cbd5f5;
       background: #ffffff;
       color: #111827;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
     }
 
     .start-name-row input::placeholder {
@@ -549,22 +547,37 @@
 
     .start-note {
       margin-top: 6px;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       color: #4b5563;
     }
 
     .start-buttons {
-      margin-top: 10px;
+      margin-top: 12px;
       display: flex;
-      justify-content: center; /* CENTRAT */
+      flex-direction: column;
       gap: 8px;
-      flex-wrap: wrap;
+      align-items: center;
     }
 
     .btn-start-intro {
-      padding: 10px 26px;
-      font-size: 0.95rem;
+      padding: 11px 20px;
+      font-size: 1rem;
       border-radius: 999px;
+      min-width: 220px;
+      justify-content: center;
+    }
+
+    .btn-start-intro-primary {
+      background: linear-gradient(to right, #22c55e, #3b82f6);
+      color: #f9fafb;
+      box-shadow: 0 10px 24px rgba(56, 189, 248, 0.35);
+      border: none;
+    }
+
+    .btn-start-intro-secondary {
+      background: #e5e7eb;
+      color: #111827;
+      border: 1px solid #d1d5db;
     }
 
     /* PAGINA DE FINAL – overlay separat */
@@ -593,27 +606,27 @@
     }
 
     .end-message {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: #0f172a;
       margin-bottom: 10px;
     }
 
     .end-score {
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       font-weight: 800;
       color: #16a34a;
       margin-bottom: 18px;
     }
 
     .end-subtext {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #4b5563;
       margin-bottom: 18px;
     }
 
     .end-restart-btn {
-      padding: 10px 26px;
+      padding: 11px 28px;
       font-size: 1rem;
       border-radius: 999px;
       background: linear-gradient(to right, #22c55e, #3b82f6);
@@ -629,43 +642,67 @@
       box-shadow: 0 5px 12px rgba(56, 189, 248, 0.25);
     }
 
+    /* Mobile focus */
     @media (max-width: 600px) {
       body {
         padding: 8px;
-        font-size: 16px;
+        font-size: 17px;
       }
+
+      .app {
+        padding: 10px 10px 14px;
+        border-radius: 18px;
+      }
+
       .title {
         font-size: 1.35rem;
       }
+
       .subtitle {
         font-size: 0.95rem;
       }
+
       .question-text {
+        font-size: 1.1rem;
+      }
+
+      .answer-btn {
         font-size: 1.05rem;
       }
-      .answer-btn {
-        font-size: 1rem;
-      }
-      .info-bubble {
-        font-size: 0.85rem;
-      }
-      .end-message {
-        font-size: 1.35rem;
-      }
-      .end-score {
-        font-size: 2.1rem;
-      }
-    }
 
-    @media (max-width: 400px) {
+      .info-bubble {
+        font-size: 0.9rem;
+      }
+
       .start-card {
-        padding: 12px 10px 10px;
+        padding: 14px 12px 12px;
+      }
+
+      .start-title {
+        font-size: 1.4rem;
+      }
+
+      .start-subtitle {
+        font-size: 0.95rem;
+      }
+
+      .btn-start-intro {
+        width: 100%;
+        max-width: 320px;
+      }
+
+      .end-message {
+        font-size: 1.45rem;
+      }
+
+      .end-score {
+        font-size: 2.3rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- PAGINA DE START – apare imediat după scanarea QR -->
+  <!-- PAGINA DE START -->
   <div class="start-overlay" id="startOverlay">
     <div class="start-card">
       <div class="start-title">Bătălia nativilor digitali 👾</div>
@@ -694,13 +731,13 @@
       </div>
 
       <div class="start-buttons">
-        <button class="btn btn-ghost btn-start-intro" id="startSkipNameBtn">Intră fără nume</button>
-        <button class="btn btn-primary btn-start-intro" id="enterGameBtn">Intră în joc</button>
+        <button class="btn btn-start-intro btn-start-intro-secondary" id="startSkipNameBtn">Intră fără nume</button>
+        <button class="btn btn-start-intro btn-start-intro-primary" id="enterGameBtn">Intră în joc</button>
       </div>
     </div>
   </div>
 
-  <!-- PAGINA DE FINAL – overlay cu scor -->
+  <!-- PAGINA DE FINAL -->
   <div class="end-overlay hidden" id="endOverlay">
     <div class="end-card">
       <div class="end-message">Felicitări, scorul dumneavoastră este:</div>
@@ -767,8 +804,6 @@
         </div>
 
         <div class="controls">
-          <!-- Buton Reia jocul – scos vizual (hidden) -->
-          <button class="btn btn-ghost btn-restart hidden" id="restartBtn">Reia jocul</button>
           <button class="btn btn-primary btn-start" id="startBtn">Start joc</button>
         </div>
       </div>
@@ -805,7 +840,7 @@
           "O persoană care a crescut folosind tehnologia și Internetul.",
           "O persoană care evită tehnologia."
         ],
-        correctIndex: 1, // b
+        correctIndex: 1,
         category: "Nativi digitali",
         explanation: "Nativii digitali sunt cei care au crescut înconjurați de tehnologie și o folosesc natural în viața de zi cu zi."
       },
@@ -816,7 +851,7 @@
           "Platformele de învățare online cu inteligența artificială.",
           "Televizorul."
         ],
-        correctIndex: 1, // b
+        correctIndex: 1,
         category: "Învățare digitală",
         explanation: "Platformele digitale cu AI pot adapta lecțiile în funcție de nevoile fiecărui elev."
       },
@@ -827,7 +862,7 @@
           "Predarea aceluiași material pentru toți, indiferent de nivel.",
           "Înlocuirea completă a motivației elevului."
         ],
-        correctIndex: 1, // b – conform indicației tale
+        correctIndex: 1,
         category: "Profesor virtual",
         explanation: "În această versiune de joc, este marcată ca fiind corectă varianta b), conform setării tale."
       },
@@ -838,7 +873,7 @@
           "Ei folosesc tehnologia pentru a căuta rapid informații și a rezolva probleme complexe.",
           "Ei evită complet metodele tradiționale de învățare."
         ],
-        correctIndex: 1, // b
+        correctIndex: 1,
         category: "Nativi digitali",
         explanation: "Nativii digitali folosesc tehnologia ca instrument de rezolvare rapidă a problemelor și acces la informații."
       },
@@ -849,7 +884,7 @@
           "Prin adaptarea materialului didactic la stilul și ritmul fiecărui elev.",
           "Prin reducerea accesului elevilor la informații complexe."
         ],
-        correctIndex: 1, // b
+        correctIndex: 1,
         category: "AI în educație",
         explanation: "AI poate personaliza învățarea, adaptând materialele pentru ritmul și nivelul fiecărui elev."
       },
@@ -860,7 +895,7 @@
           "Accesul la multiple resurse digitale.",
           "Posibilitatea de a personaliza lecțiile."
         ],
-        correctIndex: 0, // a
+        correctIndex: 0,
         category: "Limitări",
         explanation: "Interacțiunea umană și feedback-ul personal rămân esențiale în educație."
       },
@@ -871,7 +906,7 @@
           "Interacționând activ, punând întrebări și testând informațiile.",
           "Lăsând aplicațiile să decidă tot ce învață."
         ],
-        correctIndex: 0, // a – conform indicației tale
+        correctIndex: 0,
         category: "Utilizare eficientă",
         explanation: "În această versiune de joc, este marcată ca fiind corectă varianta a), conform setării tale."
       },
@@ -882,27 +917,24 @@
           "Sprijină procesul de învățare, oferind instrumente pentru dezvoltarea competențelor.",
           "Face ca elevii să nu mai învețe niciodată în mod tradițional."
         ],
-        correctIndex: 1, // b
+        correctIndex: 1,
         category: "Tehnologie și educație",
         explanation: "Tehnologia oferă instrumente moderne care sprijină învățarea și dezvoltarea competențelor."
       }
     ];
 
-    // 2. CONFIGURARE
-    const QUESTION_TIME_SECONDS = 30; // 30 de secunde per întrebare
+    const QUESTION_TIME_SECONDS = 30;
     const BASE_POINTS = 100;
     const BONUS_PER_SECOND = 5;
 
-    // 3. STARE
     let currentIndex = -1;
     let playerScore = 0;
     let timeLeft = QUESTION_TIME_SECONDS;
     let timerInterval = null;
     let questionActive = false;
     let playerName = null;
-    let activeQuestions = [...questions]; // va fi re-umplut și amestecat la start
+    let activeQuestions = [...questions];
 
-    // 4. ELEMENTE DOM
     const questionTextEl = document.getElementById("questionText");
     const questionIndexEl = document.getElementById("questionIndex");
     const questionTotalEl = document.getElementById("questionTotal");
@@ -920,7 +952,7 @@
     const timerBadgeEl = document.getElementById("timerBadge");
 
     const startBtn = document.getElementById("startBtn");
-    const restartBtn = document.getElementById("restartBtn"); // există dar e ascuns vizual
+
     const infoBubbleEl = document.getElementById("infoBubble");
     const infoMetaEl = document.getElementById("infoMeta");
     const logEl = document.getElementById("log");
@@ -934,7 +966,6 @@
     const endScoreValueEl = document.getElementById("endScoreValue");
     const playAgainBtn = document.getElementById("playAgainBtn");
 
-    // UTILITARE
     function logMessage(text) {
       const entry = document.createElement("div");
       entry.className = "log-entry";
@@ -981,7 +1012,6 @@
       progressBarFillEl.style.width = (ratio * 100).toString() + "%";
     }
 
-    // TIMER
     function startTimer() {
       clearInterval(timerInterval);
       timeLeft = QUESTION_TIME_SECONDS;
@@ -1008,7 +1038,6 @@
       clearInterval(timerInterval);
     }
 
-    // RĂSPUNSURI
     function handleAnswerClick(index) {
       if (!questionActive) return;
       const question = activeQuestions[currentIndex];
@@ -1097,7 +1126,6 @@
       setTimeout(nextQuestionOrEnd, 1600);
     }
 
-    // ÎNTREBĂRI
     function showQuestion(index) {
       const question = activeQuestions[index];
       const total = activeQuestions.length;
@@ -1138,12 +1166,8 @@
       }
     }
 
-    // START / FINAL JOC
     function startGame() {
-      // ascundem eventualul overlay de final
       endOverlayEl.classList.add("hidden");
-
-      // resetare stare + amestecare întrebări
       activeQuestions = shuffleArray([...questions]);
       playerScore = 0;
       setScores();
@@ -1178,12 +1202,10 @@
 
       logMessage(`<strong>Scor final</strong> pentru ${displayName}: ${playerScore} puncte.`);
 
-      // Afișăm overlay-ul de final cu mesajul mare + scor
       endScoreValueEl.textContent = playerScore.toString();
       endOverlayEl.classList.remove("hidden");
     }
 
-    // PAGINA DE START
     function enterGame(withName) {
       if (withName) {
         const value = startNameInputEl.value.trim();
@@ -1205,9 +1227,7 @@
       infoMetaEl.textContent = "Nu uita: la final, scorul tău poate intra în clasamentul clasei.";
     }
 
-    // EVENIMENTE
     startBtn.addEventListener("click", () => startGame());
-
     enterGameBtn.addEventListener("click", () => enterGame(true));
     startSkipNameBtn.addEventListener("click", () => enterGame(false));
 
@@ -1219,7 +1239,6 @@
       startGame();
     });
 
-    // INIT
     questionTotalEl.textContent = questions.length.toString();
     progressTextEl.textContent = `0 / ${questions.length}`;
     setScores();
